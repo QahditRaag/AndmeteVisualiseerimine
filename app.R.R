@@ -32,9 +32,9 @@ e2019 <- read.csv("data/2019.csv") %>% clean_names() %>%select(year,country,regi
 
 f2020 <- read.csv("data/2020.csv") %>% clean_names() %>%select(year,country,region,happiness_rank,happiness_score,economy_gdp_per_capita, social_support, health_life_expectancy, freedom, trust_government_corruption, generosity, dystopia_residual)
 
-g2021 <- read.csv("data/2015.csv") %>% clean_names() %>%select(year,country,region,happiness_rank,happiness_score,economy_gdp_per_capita, social_support, health_life_expectancy, freedom, trust_government_corruption, generosity, dystopia_residual)
+g2021 <- read.csv("data/2021.csv") %>% clean_names() %>%select(year,country,region,happiness_rank,happiness_score,economy_gdp_per_capita, social_support, health_life_expectancy, freedom, trust_government_corruption, generosity, dystopia_residual)
 
-h2022 <- read.csv("data/2015.csv") %>% clean_names() %>%select(year,country,region,happiness_rank,happiness_score,economy_gdp_per_capita, social_support, health_life_expectancy, freedom, trust_government_corruption, generosity, dystopia_residual)
+h2022 <- read.csv("data/2022.csv") %>% clean_names() %>%select(year,country,region,happiness_rank,happiness_score,economy_gdp_per_capita, social_support, health_life_expectancy, freedom, trust_government_corruption, generosity, dystopia_residual)
 
 
 a2015$year <- 2015
@@ -129,7 +129,7 @@ ui <- fluidPage(
                             p(strong("happiness_score"),": õnnelikkuse indeks"),
                             p(strong("economy_gdp_per_capita"),": SKP elaniku kohta"),
                             p(strong("social_support"),": sotsiaalne toetus (kas hätta sattumise korral oleks vastajal sugulasi või sõpru, kelle poole pöörduda) "),
-                            p(strong("health_life_expectancy"),": eluea pikkus"),
+                            p(strong("health_life_expectancy"),": tervelt elatud eluea pikkus"),
                             p(strong("freedom"),":vabadus teha oma elus valikuid (kas vastaja tunneb, et tal on vabadus ise oma elu kohta otsuseid teha)"),
                             p(strong("trust_government_corruption"),":usaldus korruptsiooni puudumise ja valitsuse vastu (kas vastaja tunneb, et tema valitsus on korrupeerunud)"),
                             p(strong("generosity"),": lahkus (kas vastaja on viimase kuu jooksul heategevuseks raha annetanud)"),
@@ -150,7 +150,7 @@ ui <- fluidPage(
                    br(),
                    radioButtons("var32",
                                 label = "Vali regioon",
-                                choices  = list("Aasia" = "fil1", "Ameerika" = "fil2", "Kesk-ja Ida-Euroopa" = "fil3", "Lääne-Euroopa"= "fil4", "Lähis-Ida ja Põhja Aafrika"= "fil5", "Kesk- ja Lõuna-Aafrika"= "fil6"),
+                                choices  = list("Aasia" = "fil1", "Ameerika ja okeaania" = "fil2", "Kesk-ja Ida-Euroopa" = "fil3", "Lääne-Euroopa"= "fil4", "Lähis-Ida ja Põhja Aafrika"= "fil5", "Kesk- ja Lõuna-Aafrika"= "fil6"),
                                 selected = "fil1")),
       
       mainPanel(plotlyOutput("distPlot3", width = "100%",
@@ -188,7 +188,7 @@ ui <- fluidPage(
                sidebarPanel(
                  selectInput("var4",
                              label = "Vali regioon",
-                             choices = list("Aasia", "Ameerika", "Kesk-ja Ida-Euroopa", "Lääne-Euroopa", "Lähis-Ida ja Põhja Aafrika", "Kesk- ja Lõuna-Aafrika"))
+                             choices = list("Aasia", "Ameerika ja okeaania", "Kesk-ja Ida-Euroopa", "Lääne-Euroopa", "Lähis-Ida ja Põhja Aafrika", "Kesk- ja Lõuna-Aafrika"))
                ),
                mainPanel(imageOutput("distPlot4") )
              ))))
@@ -217,7 +217,7 @@ server <- function(input, output, session) {
     if(input$var32=="fil2") fil=c("North America","Latin America and Caribbean", "North America and ANZ")
     if(input$var32=="fil3") fil=c("Central and Eastern Europe", "Commonwealth of Independent States" )
     if(input$var32=="fil4") fil=c("Western Europe" )
-    if(input$var32=="fil5") fil=c("Middle East and Northern Africa" )
+    if(input$var32=="fil5") fil=c("Middle East and Northern Africa", "Middle East and North Africa" )
     if(input$var32=="fil6") fil=c("Sub-Saharan Africa" )
     
     
@@ -461,7 +461,7 @@ server <- function(input, output, session) {
   
   output$distPlot4 <- renderImage({ 
     if(input$var4=="Aasia") Leg<-"www/asianPlot.gif"
-    if(input$var4=="Ameerika") Leg<-"www/ameerika.gif"
+    if(input$var4=="Ameerika ja okeaania") Leg<-"www/ameerika.gif"
     if(input$var4=="Kesk-ja Ida-Euroopa") Leg<-"www/kesjaidaEuroopa.gif"
     if(input$var4=="Lääne-Euroopa") Leg<-"www/laaneEuroopa.gif"
     if(input$var4=="Lähis-Ida ja Põhja Aafrika") Leg<-"www/lahisidajapohjaaafrika.gif"
